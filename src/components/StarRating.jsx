@@ -2,6 +2,18 @@ import { useState } from "react"
 import Star from "./Star"
 import PropTypes from "prop-types"
 
+
+const containerStyle = {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+}
+
+const starContainerStyle = {
+    display: "flex",
+    // gap: "4px",
+}
+
 StarRating.propTypes = {
     maxRating: PropTypes.number,
     defaultRating: PropTypes.number, 
@@ -21,17 +33,6 @@ export default function StarRating ({
     messages = [],
     onSetRating,
 }) {
-
-    const containerStyle = {
-        display: "flex",
-        alignItems: "center",
-        gap: "16px",
-    }
-    
-    const starContainerStyle = {
-        display: "flex",
-        // gap: "4px",
-    }
     
     const textStyle = {
         lineHeight: "1",
