@@ -47,11 +47,7 @@ export default function App() {
 
   const handleChangeRating = (movieId, rating) => {
     try{
-      let watchedMovieToChange = watched.find((watchedMovie) => watchedMovie.imdbID === movieId)
-      if(!watchedMovieToChange) throw new Error("Movie not found")
-      
-      watchedMovieToChange = {...watchedMovieToChange, userRating: rating};
-      setWatched((watchedMovies) => [...watchedMovies, watchedMovieToChange]);
+      setWatched((watched) => watched.map((movie) => movie.imdbID === movieId ? {...movie, userRating: rating} : movie))
       console.log(watched);
     }catch (error){
       alert(error.message)

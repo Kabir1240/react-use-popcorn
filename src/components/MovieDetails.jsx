@@ -35,12 +35,12 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(" ").at(0)),
         };
-
         onAddWatched(newWatchedMovie);
     }
 
     const handleChangeRating = (rating) => {
-        rating ? onChangeRating(selectedMovieId, rating) : setRating(rating)
+        setRating(rating)
+        onChangeRating(selectedMovieId, rating)
     }
 
     useEffect(function() {
