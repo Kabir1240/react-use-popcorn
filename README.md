@@ -1,5 +1,5 @@
 # UsePopcorn
-Movie and TV series database search and watchlist app.
+Movie and TV series database search and watchlist app.  
 uses this API for the database: https://www.omdbapi.com/
 
 # Getting Started with Create React App
