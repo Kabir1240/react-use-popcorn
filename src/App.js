@@ -105,7 +105,7 @@ export default function App() {
                 rating={watched.find((watchedMovie) => watchedMovie.imdbID === selectedMovieId) ? watched.find((watchedMovie) => watchedMovie.imdbID === selectedMovieId).userRating : 0} />
           : <>
               <MoviesYouWatched watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList watched={watched} onMovieSelect={handleMovieSelect} />
             </>}
         </Box>
       </Main>
