@@ -1,17 +1,18 @@
-const StarStyle = {
-    width: '48px',
-    height: '48px',
-    display: 'block',
-    cursor: 'pointer',
-}
-
 export default function Star ({ 
     onRate, 
     full, 
     onHoverIn, 
     onHoverOut,
-    color
+    color,
+    size
  }) {
+    const StarStyle = {
+        width: `${size}px`,
+        height: `${size}px`,
+        display: 'block',
+        cursor: 'pointer',
+    }
+
     return (
         <span 
             role="button" 

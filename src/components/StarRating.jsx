@@ -59,7 +59,8 @@ export default function StarRating ({
                         full={tempRating >= i + 1 || rating >= i + 1}
                         onHoverIn={() => setTempRating(i + 1)}
                         onHoverOut={() => setTempRating(0)}
-                        color={color} />
+                        color={color}
+                        size={size} />
                 ))}
             </div>
             <p style={textStyle}>{messages.length >= maxRating ? messages[tempRating ? tempRating - 1 : rating - 1] 
