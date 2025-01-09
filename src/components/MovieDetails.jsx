@@ -46,25 +46,32 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
     useEffect(function() {
     async function fetchMovieDetails() {
         try{
-        setError('')
-        setIsLoading(true);
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${omdb_api_key}&i=${selectedMovieId}`);
-        if(!res.ok) throw new Error("Error while fetching movies, please try again.")
+            setError('')
+            setIsLoading(true);
+            const res = await fetch(`http://www.omdbapi.com/?apikey=${omdb_api_key}&i=${selectedMovieId}`);
+            if(!res.ok) throw new Error("Error while fetching movies, please try again.")
 
-        const data = await res.json();
-        if(data.Response === "False") throw new Error(data.Error)
-        setMovieDetails(data)
-        // console.log(movieDetails);
+            const data = await res.json();
+            if(data.Response === "False") throw new Error(data.Error)
+            setMovieDetails(data)
         }catch(error){
-        setError(error.message)
-        console.log(error);
+            setError(error.message)
+            // console.log(error);
         }finally{
-        setIsLoading(false);
+            setIsLoading(false);
         }
     };
 
     fetchMovieDetails()
-    }, [selectedMovieId]);
+    }, []);
+
+    useEffect(function() {
+        if(!title) return
+        document.title = `Movie | ${title}`;
+
+        // clean up function
+        return () => document.title = "usePopcorn"
+    }, [title])
 
     return (
         <div className="details">

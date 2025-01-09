@@ -59,18 +59,21 @@ export default function App() {
   }
 
   useEffect(function() {
+    const controller = new AbortController()
     async function fetchMovies() {
       try{
         setError('')
         setIsLoading(true);
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${omdb_api_key}&s=${query}`);
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${omdb_api_key}&s=${query}`, { signal: controller.signal});
         if(!res.ok) throw new Error("Error while fetching movies, please try again.")
 
         const data = await res.json();
         if(data.Response === "False") throw new Error(data.Error)
         setMovies(data.Search)
       }catch(error){
-        setError(error.message)
+        if (error.name !== "AbortError"){
+          setError(error.message)
+        } 
       }finally{
         setIsLoading(false);
       }
@@ -82,6 +85,8 @@ export default function App() {
       return;
     }
     fetchMovies()
+
+    return () => controller.abort();
   }, [query]);
 
   return (
@@ -101,7 +106,8 @@ export default function App() {
 
         <Box isOpen={isOpen2} setIsOpen={setIsOpen2}>
           {selectedMovieId ? 
-              <MovieDetails 
+              <MovieDetails
+                key={selectedMovieId}
                 selectedMovieId={selectedMovieId} 
                 onCloseMovie={handleCloseMovie} 
                 onAddWatched={handleAddWatched}
