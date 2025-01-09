@@ -6,11 +6,11 @@ import StarRating from "./StarRating"
 
 const omdb_api_key = process.env.REACT_APP_OMDB_API_KEY;
 
-export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatched, onChangeRating }) {
+export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatched, onChangeRating, movieRating }) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [movieDetails, setMovieDetails] = useState({});
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(movieRating ? movieRating : null);
 
     const {
         Title: title,
@@ -87,7 +87,11 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
 
                     <section>
                         <div className="rating">
-                            <StarRating maxRating={10} size={24} onSetRating={handleChangeRating} />
+                            <StarRating 
+                                maxRating={10} 
+                                size={24} 
+                                onSetRating={handleChangeRating}
+                                defaultRating={rating} />
                             <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
                         </div>
                         <p>

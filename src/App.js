@@ -54,6 +54,10 @@ export default function App() {
     }
   }
 
+  const handleDeleteWatched = (movieId) => {
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== movieId))
+  }
+
   useEffect(function() {
     async function fetchMovies() {
       try{
@@ -102,10 +106,10 @@ export default function App() {
                 onCloseMovie={handleCloseMovie} 
                 onAddWatched={handleAddWatched}
                 onChangeRating={handleChangeRating}
-                rating={watched.find((watchedMovie) => watchedMovie.imdbID === selectedMovieId) ? watched.find((watchedMovie) => watchedMovie.imdbID === selectedMovieId).userRating : 0} />
+                movieRating={watched.find((watchedMovie) => watchedMovie.imdbID === selectedMovieId)?.userRating} />
           : <>
               <MoviesYouWatched watched={watched} />
-              <WatchedMoviesList watched={watched} onMovieSelect={handleMovieSelect} />
+              <WatchedMoviesList watched={watched} onMovieSelect={handleMovieSelect} onDeleteWatched={handleDeleteWatched} />
             </>}
         </Box>
       </Main>
