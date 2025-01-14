@@ -1,6 +1,18 @@
-import { useState } from "react";
+import { useRef, useEffect } from "react";
 
 const Searchbar = ({ query, setQuery }) => {
+    const searchbarInputEl = useRef(null);
+
+    useEffect(() => {
+      const callback = (e) => {
+        if(document.activeElement === searchbarInputEl.current) return;
+        if(e.code === "Enter") searchbarInputEl.current.focus();
+      }
+
+      searchbarInputEl.current.focus();
+      document.addEventListener("keydown", callback)
+      return () => document.removeEventListener("keydown", callback)
+    }, [])
   
     return (
       <input
@@ -9,6 +21,7 @@ const Searchbar = ({ query, setQuery }) => {
         placeholder="Search movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        ref={searchbarInputEl}
       />
     )
   }

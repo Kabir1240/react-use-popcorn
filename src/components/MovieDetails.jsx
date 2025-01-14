@@ -73,6 +73,17 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
         return () => document.title = "usePopcorn"
     }, [title])
 
+    useEffect(() => {
+        const callback = (e) => {
+            if(e.code === 'Escape') {
+                onCloseMovie();
+            }
+        }
+
+        document.addEventListener('keydown', callback)
+        return () => document.removeEventListener('keydown', callback)
+    }, [onCloseMovie])
+
     return (
         <div className="details">
             {isLoading && <Loader />}
