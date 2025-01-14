@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Loader from "./loader";
 import ErrorMessage from "./ErrorMesage";
 import StarRating from "./StarRating"
+import { useKey } from "../hooks/useKey";
 
 
 const omdb_api_key = process.env.REACT_APP_OMDB_API_KEY;
@@ -63,7 +64,7 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
     };
 
     fetchMovieDetails()
-    }, []);
+    }, [selectedMovieId]);
 
     useEffect(function() {
         if(!title) return
@@ -73,16 +74,7 @@ export default function MovieDetails({ selectedMovieId, onCloseMovie, onAddWatch
         return () => document.title = "usePopcorn"
     }, [title])
 
-    useEffect(() => {
-        const callback = (e) => {
-            if(e.code === 'Escape') {
-                onCloseMovie();
-            }
-        }
-
-        document.addEventListener('keydown', callback)
-        return () => document.removeEventListener('keydown', callback)
-    }, [onCloseMovie])
+    useKey("Escape", onCloseMovie);
 
     return (
         <div className="details">
